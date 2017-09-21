@@ -15,6 +15,8 @@ int LMM_HEIGHT = 32;
 boolean[][] lmmArray = new boolean [LMM_WIDTH][LMM_HEIGHT];
 boolean[][] past_lmmArray = new boolean [LMM_WIDTH][LMM_HEIGHT];
 
+int walkX = 16, walkY = 16;
+
 void setup() {
   size(800, 800);
   frame.setResizable(true);
@@ -40,6 +42,8 @@ int boxWidth = width / LMM_WIDTH;
 int boxHeight = height / LMM_HEIGHT;
 
 void draw() {
+  crossWalk(walkX, walkY);
+
   // clear the screen:
   background(0);
   boxWidth = width / LMM_WIDTH;
@@ -195,4 +199,50 @@ void resetArray() {
     }
   }
   sendCommand('c');
+}
+
+void crossWalk(int posX, int posY) {
+  for (int j = 0; j < LMM_HEIGHT; j++) {
+    for (int i = 0; i < LMM_HEIGHT; i++) {
+      lmmArray[i][j] = false;
+    }
+  }
+
+  int i, j;
+  i = posX;
+  j = posY;
+  while (i >= 0 && j >= 0) {
+    i--; 
+    j--;
+    i = constrain(i, 0, LMM_WIDTH - 1);
+    j = constrain(j, 0, LMM_HEIGHT - 1);
+    lmmArray[i][j] = true;
+  }
+  i = posX;
+  j = posY;
+  while (i >= 0 && j < LMM_HEIGHT) {
+    i--; 
+    j++;
+    i = constrain(i, 0, LMM_WIDTH - 1);
+    j = constrain(j, 0, LMM_HEIGHT - 1);
+    lmmArray[i][j] = true;
+  }
+  i = posX;
+  j = posY;
+  while (i < LMM_WIDTH && j >= 0) {
+    i++; 
+    j--;
+    i = constrain(i, 0, LMM_WIDTH - 1);
+    j = constrain(j, 0, LMM_HEIGHT - 1);
+    lmmArray[i][j] = true;
+  }
+  i = posX;
+  j = posY;
+  while (i < LMM_WIDTH && j < LMM_HEIGHT) {
+    i++; 
+    j++;
+    i = constrain(i, 0, LMM_WIDTH - 1);
+    j = constrain(j, 0, LMM_HEIGHT - 1);
+    lmmArray[i][j] = true;
+  }
 }
