@@ -3,9 +3,10 @@
 
 //(din, clock, load, #connected Led Matrix) in Arduino = (1, 12, 13) in MAX7219
 LedControl lms[] = {LedControl(2, 4, 3, 4),
-                    LedControl(5, 7, 6, 4),
-                    LedControl(8, 10, 9, 4),
-                    LedControl(A0, A2, A1, 4)
+                    LedControl(5, 7, 6, 4)
+//                    ,
+//                    LedControl(8, 10, 9, 4),
+//                    LedControl(A0, A2, A1, 4)
                    };
 
 int  LMS_DEV_X_NUM = lms[0].getDeviceCount();
