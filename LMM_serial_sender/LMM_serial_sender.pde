@@ -13,6 +13,7 @@ int LMM_WIDTH = 32;
 int LMM_HEIGHT = 32;
 
 boolean[][] lmmArray = new boolean [LMM_WIDTH][LMM_HEIGHT];
+boolean[][] past_lmmArray = new boolean [LMM_WIDTH][LMM_HEIGHT];
 
 void setup() {
   size(800, 800);
@@ -94,13 +95,54 @@ void mouseDragged() {
   }
 }
 
+void mouseReleased() {
+  sendImage();
+  putOnDisplay();
+}
+
 void keyPressed() {
   switch (key) {
   case 'n':
-    println("---");
-    println("start sending");
-    println("---");
-    for (int i = 0; i < LMM_HEIGHT; i++) {
+    sendImage();
+    putOnDisplay();
+    break;
+  case 'r':
+    resetArray();
+    flashDisplay();
+    break;
+  case 'f':
+    flashDisplay();
+    break;
+  case 'o':
+    putOnDisplay();
+    break;
+  default:
+    sendCommand(key);
+    break;
+  }
+}
+
+void sendCommand(char chr) {
+  myPorts[0].write(chr);
+  myPorts[0].write('\n');
+  myPorts[1].write(chr);
+  myPorts[1].write('\n');
+}
+
+void sendImage() {
+  println("---");
+  println("start sending");
+  println("---");
+  for (int i = 0; i < LMM_HEIGHT; i++) {
+    boolean diffFlag = false;
+    for (int j = 0; j < LMM_WIDTH; j++) {
+      if (lmmArray[j][i] != past_lmmArray[j][i]) {
+        diffFlag = true;
+        past_lmmArray[j][i] = lmmArray[j][i];
+      }
+    }
+
+    if (diffFlag) { 
       String sendStr = "n";
       if (i< 16) {
         sendStr += char(i + int('0'));
@@ -122,7 +164,7 @@ void keyPressed() {
         }
       }
       print("wrote:" + i + " " + sendStr);
-      delay(100);
+      //delay(100);
 
       //String sendStr = "n011110000111100001111000011110000\n";
       //for (int i = 0; i < sendStr.length(); i++) {
@@ -131,35 +173,17 @@ void keyPressed() {
       //  delay(200);
       //}
     }
-    println("---");
-    println("finish sending");
-    println("---");
-    refreshDisplay();
-    break;
-  case 'r':
-    resetArray();
-    break;
-  case 'c':
-  case 'o':
-  case 'f':
-  case 'x':
-  case 'y':
-    sendCommand(key);
-    break;
-  default:
-    break;
   }
+  println("---");
+  println("finish sending");
+  println("---");
 }
 
-void sendCommand(char chr) {
-  myPorts[0].write(chr);
-  myPorts[0].write('\n');
-  myPorts[1].write(chr);
-  myPorts[1].write('\n');
-}
-
-void refreshDisplay() {
+void flashDisplay() {
   sendCommand('f');
+}
+
+void putOnDisplay() {
   sendCommand('o');
 }
 
@@ -167,6 +191,8 @@ void resetArray() {
   for (int j = 0; j < LMM_HEIGHT; j++) {
     for (int i = 0; i < LMM_HEIGHT; i++) {
       lmmArray[i][j] = false;
+      past_lmmArray[i][j] = false;
     }
   }
+  sendCommand('c');
 }
