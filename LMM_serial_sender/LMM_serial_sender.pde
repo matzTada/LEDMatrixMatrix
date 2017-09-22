@@ -42,8 +42,6 @@ int boxWidth = width / LMM_WIDTH;
 int boxHeight = height / LMM_HEIGHT;
 
 void draw() {
-  crossWalk(walkX, walkY);
-
   // clear the screen:
   background(0);
   boxWidth = width / LMM_WIDTH;
@@ -118,6 +116,12 @@ void keyPressed() {
     flashDisplay();
     break;
   case 'o':
+    putOnDisplay();
+    break;
+  case 'x':
+    flashDisplay();
+    crossWalk(walkX, walkY);
+    sendImage();
     putOnDisplay();
     break;
   default:
@@ -203,7 +207,7 @@ void resetArray() {
 
 void crossWalk(int posX, int posY) {
   for (int j = 0; j < LMM_HEIGHT; j++) {
-    for (int i = 0; i < LMM_HEIGHT; i++) {
+    for (int i = 0; i < LMM_WIDTH; i++) {
       lmmArray[i][j] = false;
     }
   }
@@ -212,37 +216,29 @@ void crossWalk(int posX, int posY) {
   i = posX;
   j = posY;
   while (i >= 0 && j >= 0) {
+    lmmArray[i][j] = true;
     i--; 
     j--;
-    i = constrain(i, 0, LMM_WIDTH - 1);
-    j = constrain(j, 0, LMM_HEIGHT - 1);
-    lmmArray[i][j] = true;
   }
   i = posX;
   j = posY;
   while (i >= 0 && j < LMM_HEIGHT) {
+    lmmArray[i][j] = true;
     i--; 
     j++;
-    i = constrain(i, 0, LMM_WIDTH - 1);
-    j = constrain(j, 0, LMM_HEIGHT - 1);
-    lmmArray[i][j] = true;
   }
   i = posX;
   j = posY;
   while (i < LMM_WIDTH && j >= 0) {
+    lmmArray[i][j] = true;
     i++; 
     j--;
-    i = constrain(i, 0, LMM_WIDTH - 1);
-    j = constrain(j, 0, LMM_HEIGHT - 1);
-    lmmArray[i][j] = true;
   }
   i = posX;
   j = posY;
   while (i < LMM_WIDTH && j < LMM_HEIGHT) {
+    lmmArray[i][j] = true;
     i++; 
     j++;
-    i = constrain(i, 0, LMM_WIDTH - 1);
-    j = constrain(j, 0, LMM_HEIGHT - 1);
-    lmmArray[i][j] = true;
   }
 }
