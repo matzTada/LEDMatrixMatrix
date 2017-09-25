@@ -28,10 +28,10 @@ void setup() {
   // Open whatever ports ares the ones you're using.
 
   // get the ports' names:
-  //String portOne = Serial.list()[0];
-  //String portTwo = Serial.list()[1];
-  String portOne = "COM18";
-  String portTwo = "COM14";
+  String portOne = Serial.list()[1];
+  String portTwo = Serial.list()[0];
+  //String portOne = "COM18";
+  //String portTwo = "COM14";
   // open the ports:
   myPorts[0] = new Serial(this, portOne, 9600);
   myPorts[1] = new Serial(this, portTwo, 9600);
@@ -119,7 +119,9 @@ void keyPressed() {
     putOnDisplay();
     break;
   case 'x':
-    flashDisplay();
+    //flashDisplay();
+    walkX = (int)random(0, LMM_WIDTH);
+    walkY = (int)random(0, LMM_HEIGHT);
     crossWalk(walkX, walkY);
     sendImage();
     putOnDisplay();
@@ -206,11 +208,11 @@ void resetArray() {
 }
 
 void crossWalk(int posX, int posY) {
-  for (int j = 0; j < LMM_HEIGHT; j++) {
-    for (int i = 0; i < LMM_WIDTH; i++) {
-      lmmArray[i][j] = false;
-    }
-  }
+  //for (int j = 0; j < LMM_HEIGHT; j++) {
+  //  for (int i = 0; i < LMM_WIDTH; i++) {
+  //    lmmArray[i][j] = false;
+  //  }
+  //}
 
   int i, j;
   i = posX;
