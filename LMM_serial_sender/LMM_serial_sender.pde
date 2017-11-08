@@ -121,7 +121,9 @@ void keyPressed() {
     putOnDisplay();
     break;
   case 'x':
-    flashDisplay();
+    //flashDisplay();
+    walkX = (int)random(0, LMM_WIDTH);
+    walkY = (int)random(0, LMM_HEIGHT);
     crossWalk(walkX, walkY);
     sendImage();
     putOnDisplay();
@@ -208,11 +210,11 @@ void resetArray() {
 }
 
 void crossWalk(int posX, int posY) {
-  for (int j = 0; j < LMM_HEIGHT; j++) {
-    for (int i = 0; i < LMM_WIDTH; i++) {
-      lmmArray[i][j] = false;
-    }
-  }
+  //for (int j = 0; j < LMM_HEIGHT; j++) {
+  //  for (int i = 0; i < LMM_WIDTH; i++) {
+  //    lmmArray[i][j] = false;
+  //  }
+  //}
 
   int i, j;
   i = posX;
