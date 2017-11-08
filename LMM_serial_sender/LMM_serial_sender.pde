@@ -30,8 +30,10 @@ void setup() {
   // get the ports' names:
   //String portOne = Serial.list()[0];
   //String portTwo = Serial.list()[1];
-  String portOne = "COM18";
-  String portTwo = "COM14";
+  //String portOne = "COM18";
+  //String portTwo = "COM14";
+  String portOne = "/dev/ttyACM1";
+  String portTwo = "/dev/ttyACM0";
   // open the ports:
   myPorts[0] = new Serial(this, portOne, 9600);
   myPorts[1] = new Serial(this, portTwo, 9600);
