@@ -35,8 +35,8 @@ void setup() {
   String portOne = "/dev/ttyACM1";
   String portTwo = "/dev/ttyACM0";
   // open the ports:
-  myPorts[0] = new Serial(this, portOne, 9600);
-  myPorts[1] = new Serial(this, portTwo, 9600);
+  myPorts[0] = new Serial(this, portOne, 57600);
+  myPorts[1] = new Serial(this, portTwo, 57600);
 }
 
 

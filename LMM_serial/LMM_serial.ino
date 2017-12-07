@@ -20,7 +20,7 @@ int LMS_Y_MAX = 8 * LMS_DEV_Y_NUM;
 byte* lmsArray; //pointer for array
 
 void setup() {
-  Serial.begin(9600);
+  Serial.begin(57600);
   Serial.println(LMS_DEV_X_NUM );
   Serial.println(LMS_X_MAX);
   Serial.println(LMS_DEV_Y_NUM );
@@ -94,6 +94,8 @@ void switchOn() { //switch on
       byte tb = 1;
       if (lmsArray[i] & (tb << (7 - j))) {
         point(lms, x * 8 + j, y, HIGH);
+      } else {
+        point(lms, x * 8 + j, y, LOW);
       }
     }
   }
